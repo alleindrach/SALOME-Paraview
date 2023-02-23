@@ -384,7 +384,7 @@ void vtkInitializationHelper::Finalize()
   vtkProcessModule::Finalize();
 
   // Optional:  Delete all global objects allocated by libprotobuf.
-  google::protobuf::ShutdownProtobufLibrary();
+  // google::protobuf::ShutdownProtobufLibrary();
 }
 
 //----------------------------------------------------------------------------
