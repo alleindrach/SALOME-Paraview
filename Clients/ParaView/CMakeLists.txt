@@ -2,7 +2,13 @@ cmake_dependent_option(PARAVIEW_ENABLE_EMBEDDED_DOCUMENTATION
   "Build the ParaView help menu documentation for ParaView and its plugins" ON
   "PARAVIEW_USE_QT" ON)
 mark_as_advanced(PARAVIEW_ENABLE_EMBEDDED_DOCUMENTATION)
-
+if (APPLE)
+  set(_paraview_CMAKE_INSTALL_RPATH_save
+  "${CMAKE_INSTALL_RPATH}")
+  list(APPEND CMAKE_INSTALL_RPATH
+    "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}")
+  message("================CMAKE_INSTALL_RPATH=${CMAKE_INSTALL_RPATH}============")
+endif(APPLE)
 set(xmls
   "${CMAKE_CURRENT_SOURCE_DIR}/ParaViewFilters.xml"
   "${CMAKE_CURRENT_SOURCE_DIR}/ParaViewSources.xml")
@@ -160,3 +166,7 @@ set_property(GLOBAL APPEND
 set_property(GLOBAL
   PROPERTY
     paraview_client_xml_destination "${paraview_xml_destination}")
+    
+if (APPLE)
+  set(CMAKE_INSTALL_RPATH "${_paraview_CMAKE_INSTALL_RPATH_save}")
+endif(APPLE)

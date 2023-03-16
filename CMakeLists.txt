@@ -30,7 +30,7 @@
 #==========================================================================
 cmake_minimum_required(VERSION 3.12...3.16 FATAL_ERROR)
 project(ParaView)
-
+cmake_policy(SET CMP0127 NEW)
 # Disallow in-source build
 if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_CURRENT_BINARY_DIR)
   message(FATAL_ERROR
@@ -416,6 +416,8 @@ set(_paraview_CMAKE_INSTALL_RPATH_save
 if (APPLE)
   list(APPEND CMAKE_INSTALL_RPATH
     "@loader_path")
+  list(APPEND CMAKE_INSTALL_RPATH
+   "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}")
 elseif (UNIX)
   list(APPEND CMAKE_INSTALL_RPATH
     "$ORIGIN")
